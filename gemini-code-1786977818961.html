@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="bn" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বিদ্যাভ্যাস VVM 2026 - West Bengal Prep Portal</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Hind Siliguri -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: '#0f172a',
+                            900: '#0b0f19',
+                            800: '#1e293b',
+                            700: '#334155'
+                        },
+                        neon: {
+                            physics: '#38bdf8',
+                            chem: '#10b981',
+                            bio: '#c084fc',
+                            math: '#fbbf24',
+                            gen: '#818cf8'
+                        }
+                    },
+                    fontFamily: {
+                        bengali: ['"Hind Siliguri"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Animated Floating Background Elements */
+        @keyframes float-slow-up {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+
+        @keyframes float-slow-down {
+            0% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(25px) scale(1.15); }
+            100% { transform: translateY(0px) scale(1); }
+        }
+
+        @keyframes float-drift {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(15px, -30px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes pulse-crimson {
+            0%, 100% { background-color: rgba(225, 29, 72, 0.2); border-color: #f43f5e; }
+            50% { background-color: rgba(225, 29, 72, 0.5); border-color: #e11d48; }
+        }
+
+        .bg-float {
+            position: fixed;
+            pointer-events: none;
+            user-select: none;
+            opacity: 0.18;
+            z-index: 0;
+        }
+
+        .float-physics { top: 8%; left: 4%; font-size: 5rem; animation: float-slow-up 12s infinite ease-in-out; }
+        .float-chem { top: 45%; right: 5%; font-size: 5.5rem; animation: float-slow-down 14s infinite ease-in-out; }
+        .float-bio { bottom: 12%; left: 6%; font-size: 5rem; animation: float-drift 16s infinite ease-in-out; }
+        .float-math { bottom: 25%; left: 48%; font-size: 4.5rem; animation: float-slow-down 10s infinite ease-in-out; }
+        .float-gen { top: 15%; left: 50%; font-size: 4rem; animation: float-slow-up 15s infinite ease-in-out; }
+
+        .timer-warning-active {
+            animation: pulse-crimson 1s infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between relative selection:bg-indigo-500 selection:text-white">
+
+    <!-- Floating Background Matrix -->
+    <div class="bg-float float-physics" title="Physics">⚛️</div>
+    <div class="bg-float float-chem" title="Chemistry">🧪</div>
+    <div class="bg-float float-bio" title="Biology">🧬</div>
+    <div class="bg-float float-math" title="Mathematics">♾️</div>
+    <div class="bg-float float-gen" title="General Science">🪐</div>
+
+    <div class="relative z-10 flex-grow flex flex-col">
+        <!-- Header & Nav Bar -->
+        <header class="bg-slate-900/80 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('dashboard')">
+                    <div class="bg-indigo-600 text-white p-2.5 rounded-xl font-bold text-xl shadow-lg shadow-indigo-500/30">
+                        VVM
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                            विद्याभ्यास <span class="text-xs px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 font-semibold">2026</span>
+                        </h1>
+                        <p class="text-xs text-slate-400">পশ্চিমবঙ্গ মধ্যশিক্ষা পর্ষদ (বাংলা মাধ্যম)</p>
+                    </div>
+                </div>
+
+                <!-- Main Navigation Tabs -->
+                <nav class="flex items-center gap-1 bg-slate-800/80 p-1 rounded-xl border border-slate-700/50 text-sm font-medium">
+                    <button id="nav-dashboard" onclick="switchTab('dashboard')" class="px-4 py-2 rounded-lg text-white bg-indigo-600 transition-all">
+                        📋 ড্যাশবোর্ড
+                    </button>
+                    <button id="nav-antigravity" onclick="switchTab('antigravity')" class="px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700/50 transition-all">
+                        🌌 অ্যান্টিগ্রাভিটি জোন
+                    </button>
+                    <button id="nav-scientists" onclick="switchTab('scientists')" class="px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700/50 transition-all">
+                        🔬 বিজ্ঞানী জীবনী
+                    </button>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Dynamic Main Content Wrapper -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+            <!-- TAB 1: DASHBOARD & MOCK TEST ENGINE -->
+            <section id="tab-dashboard" class="space-y-6">
+                <!-- VVM Rules Header Badge -->
+                <div class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-transparent border-l-4 border-amber-500 p-4 rounded-r-xl flex items-center justify-between shadow-sm">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl">📜</span>
+                        <p class="text-sm md:text-base font-semibold text-amber-200">
+                            অলিম্পিয়াড নিয়মাবলী: সমগ্র সিলেবাস থেকে প্রতিটি সেশনে কেবল ১৫টি প্রশ্নই থাকবে
+                        </p>
+                    </div>
+                    <span class="hidden md:inline-block text-xs font-mono bg-amber-500/20 text-amber-300 px-2.5 py-1 rounded border border-amber-500/30">সময়: ১৫ মিনিট</span>
+                </div>
+
+                <!-- Dashboard Filters & Matrix Selection -->
+                <div id="filter-card" class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-6">
+                    <h2 class="text-lg font-bold text-indigo-400 flex items-center gap-2">
+                        <span>⚙️</span> পরীক্ষা সেশন কনফিগারেশন
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Class Filter Grid -->
+                        <div class="space-y-2 md:col-span-1">
+                            <label class="text-xs font-semibold uppercase text-slate-400 tracking-wider">শ্রেণী নির্বাচন (Class)</label>
+                            <div class="grid grid-cols-4 gap-1.5" id="class-grid">
+                                <!-- Class 6 to 12 Buttons -->
+                            </div>
+                        </div>
+
+                        <!-- Subject Dropdown Matrix -->
+                        <div class="space-y-2">
+                            <label for="subject-select" class="text-xs font-semibold uppercase text-slate-400 tracking-wider">বিষয় নির্বাচন (Subject)</label>
+                            <select id="subject-select" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-indigo-500 transition">
+                                <option value="all" selected>সম্পূর্ণ সম্মিলিত সিলেবাস (Comprehensive VVM Syllabus)</option>
+                                <option value="physical">ভৌত বিজ্ঞান / পদার্থবিদ্যা ও রসায়ন (Physical Science)</option>
+                                <option value="life">জীবন বিজ্ঞান / জীববিদ্যা (Life Science)</option>
+                                <option value="math">গণিত (Mathematics)</option>
+                                <option value="indian_science">বিজ্ঞানে ভারতের অবদান ও বিজ্ঞানীদের জীবনী (Indian Contributions)</option>
+                            </select>
+                        </div>
+
+                        <!-- Year Selector Matrix -->
+                        <div class="space-y-2">
+                            <label for="year-select" class="text-xs font-semibold uppercase text-slate-400 tracking-wider">প্রশ্নপত্র বছর (Year Matrix)</label>
+                            <select id="year-select" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-indigo-500 transition">
+                                <!-- Generated Dynamically 2026 - 2017 -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex justify-end">
+                        <button onclick="startMockTest()" class="w-full md:w-auto bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-indigo-500/25 transition-all transform active:scale-95 flex items-center justify-center gap-2 text-base">
+                            <span>🚀</span> মক টেস্ট শুরু করুন
+                        </button>
+                    </div>
+                </div>
+
+                <!-- MOCK TEST SESSION INTERFACE (Hidden by Default) -->
+                <div id="test-session" class="hidden space-y-6">
+                    <!-- Top Bar: Timer & Progress -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4 shadow-lg">
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs uppercase font-bold tracking-wider text-slate-400">বর্তমান প্রশ্ন:</span>
+                            <span id="current-q-badge" class="bg-indigo-600 text-white text-sm font-bold px-3 py-1 rounded-lg">1 / 15</span>
+                        </div>
+
+                        <!-- Dynamic Timer Trigger Node -->
+                        <div id="timer-container" class="flex items-center gap-2 bg-slate-900 border border-slate-700 px-4 py-2 rounded-xl transition-all">
+                            <span id="timer-dot" class="h-3 w-3 rounded-full bg-emerald-500"></span>
+                            <span class="text-xs text-slate-400 font-medium">অবশিষ্ট সময়:</span>
+                            <span id="timer-display" class="font-mono text-lg font-bold text-slate-100">15:00</span>
+                        </div>
+
+                        <button onclick="submitExamPrompt()" class="bg-rose-600/20 text-rose-300 border border-rose-500/40 hover:bg-rose-600 hover:text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
+                            পরীক্ষা সমাপ্ত করুন (Submit)
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                        <!-- Left Node: Main Question Display Box -->
+                        <div class="lg:col-span-3 bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col justify-between min-h-[420px]">
+                            <div>
+                                <div class="flex items-center justify-between border-b border-slate-700/60 pb-3 mb-4">
+                                    <span id="question-category" class="text-xs font-semibold text-indigo-400 uppercase tracking-wide">বিষয়: ভৌত বিজ্ঞান</span>
+                                    <span class="text-xs text-slate-400">মান: ১</span>
+                                </div>
+                                <h3 id="question-text" class="text-lg md:text-xl font-semibold text-slate-100 leading-relaxed mb-6">
+                                    --
+                                </h3>
+
+                                <!-- MCQ Options List -->
+                                <div id="options-container" class="space-y-3">
+                                    <!-- Options populated via JS -->
+                                </div>
+                            </div>
+
+                            <!-- Bottom Action Controls -->
+                            <div class="flex flex-wrap items-center justify-between gap-3 pt-6 border-t border-slate-700/60 mt-6">
+                                <button onclick="prevQuestion()" id="btn-prev" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 text-sm rounded-xl font-medium transition disabled:opacity-40">
+                                    ⬅️ পূর্ববর্তী
+                                </button>
+                                <button onclick="toggleReviewMark()" id="btn-review" class="px-4 py-2 bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 text-sm rounded-xl font-medium transition">
+                                    📌 রিভিউ মার্ক করুন
+                                </button>
+                                <button onclick="nextQuestion()" id="btn-next" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm rounded-xl font-semibold transition">
+                                    পরবর্তী ➡️
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Right Palette: Navigation Matrix -->
+                        <div class="lg:col-span-1 bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-xl space-y-4">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-700 pb-2">
+                                প্রশ্ন নেভিগেশন
+                            </h4>
+                            
+                            <div id="nav-grid" class="grid grid-cols-5 gap-2">
+                                <!-- 1 to 15 grid rendered dynamically -->
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-700/60 space-y-2 text-xs">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded bg-indigo-600"></span>
+                                    <span class="text-slate-300">উত্তর দেওয়া হয়েছে</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded bg-amber-500"></span>
+                                    <span class="text-slate-300">রিভিউ চিহ্নিত</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded bg-slate-700"></span>
+                                    <span class="text-slate-300">উত্তর দেওয়া হয়নি</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REVIEW & EVALUATION REPORT ZONE (Hidden by Default) -->
+                <div id="review-zone" class="hidden space-y-6">
+                    <!-- Analytical Scorecard Box -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-6">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-4">
+                            <div>
+                                <h2 class="text-xl font-bold text-white">📊 পরীক্ষার ফলাফল ও বিশ্লেষণ</h2>
+                                <p class="text-xs text-slate-400 mt-1">VVM Talent Search Performance Evaluation Model</p>
+                            </div>
+                            <button onclick="resetToDashboard()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-4 py-2 rounded-xl transition">
+                                🔄 নতুন মক টেস্ট দিন
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+                            <!-- Circular Score Gauge -->
+                            <div class="flex flex-col items-center justify-center p-6 bg-slate-900/60 border border-slate-700/60 rounded-2xl">
+                                <div class="relative w-32 h-32 flex items-center justify-center">
+                                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                                        <path class="text-slate-700" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path id="score-gauge-circle" class="text-indigo-500 transition-all duration-1000 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    </svg>
+                                    <div class="absolute text-center">
+                                        <span id="score-text" class="text-2xl font-extrabold text-white">0/15</span>
+                                        <span class="block text-[10px] text-slate-400 uppercase tracking-widest">প্রাপ্ত নম্বর</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Accuracy Rate Calculation Box -->
+                            <div class="p-6 bg-slate-900/60 border border-slate-700/60 rounded-2xl flex flex-col justify-center space-y-2">
+                                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">সঠিকতার হার (Accuracy Rate)</span>
+                                <div class="flex items-baseline gap-2">
+                                    <span id="accuracy-rate" class="text-3xl font-extrabold text-emerald-400">0%</span>
+                                    <span class="text-xs text-slate-400">সামগ্রিক দক্ষতা</span>
+                                </div>
+                                <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden mt-2">
+                                    <div id="accuracy-bar" class="bg-emerald-500 h-full w-0 transition-all duration-1000"></div>
+                                </div>
+                            </div>
+
+                            <!-- Summary Metrics Node -->
+                            <div class="p-6 bg-slate-900/60 border border-slate-700/60 rounded-2xl space-y-3">
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-slate-400">সঠিক উত্তর:</span>
+                                    <span id="stat-correct" class="font-bold text-emerald-400">0</span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-slate-400">ভুল উত্তর:</span>
+                                    <span id="stat-wrong" class="font-bold text-rose-400">0</span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-slate-400">উত্তর দেওয়া হয়নি:</span>
+                                    <span id="stat-unanswered" class="font-bold text-slate-400">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Deep Review Explanatory Node List -->
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                            <span>🔍</span> বিস্তারিত ব্যাখ্যা ও উত্তরপত্র
+                        </h3>
+                        <div id="review-list" class="space-y-4">
+                            <!-- Populated dynamically via Javascript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: ANTIGRAVITY THEORETICAL MODEL -->
+            <section id="tab-antigravity" class="hidden space-y-6">
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 md:p-8 shadow-xl space-y-6">
+                    <div class="border-b border-slate-700 pb-4">
+                        <span class="text-xs font-bold text-cyan-400 tracking-widest uppercase">উচ্চতর পদার্থবিজ্ঞান মডিউল</span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mt-1">অ্যান্টিগ্রাভিটি জোন (Antigravity Theoretical Model)</h2>
+                        <p class="text-sm text-slate-400 mt-1">মহাকর্ষীয় আকর্ষণ বনাম ঋণাত্মক ভর ও ডার্ক এনার্জির বিকর্ষণীয় বলের তাত্ত্বিক বিশ্লেষণ</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div class="space-y-4 text-slate-300 text-sm leading-relaxed">
+                            <p>
+                                <strong class="text-white">নিউটনীয় মহাকর্ষ বনাম আইনস্টাইনের সাধারণ আপেক্ষিকতা:</strong> নিউটনের মহাকর্ষ সূত্র অনুযায়ী বিশ্বের যেকোনো দুটি বস্তু পরস্পরকে আকর্ষণ করে ($F = G \frac{m_1 m_2}{r^2}$)। তবে সাধারণ আপেক্ষিকতায় (General Relativity) মহাকর্ষ হলো স্থান-কালের (Spacetime) বক্রতা।
+                            </p>
+                            <p>
+                                <strong class="text-white">ঋণাত্মক ভর (Negative Mass - $M_2$):</strong> তাত্ত্বিক পদার্থবিদ্যায় ঋণাত্মক ভরের অস্তিত্ব ধরে নিলে মহাকর্ষীয় বল আকর্ষণের পরিবর্তে বিকর্ষণমূলক আচরণ শুরু করে। একটি ধনাত্মক ভর ($M_1$) এবং একটি ঋণাত্মক ভর ($-M_2$) স্থান-কালের বক্রতায় বিপরীতমুখী প্রতিক্রিয়া তৈরি করে।
+                            </p>
+                            <p>
+                                <strong class="text-white">ডার্ক এনার্জি (Dark Energy Field):</strong> পর্যবেক্ষণযোগ্য মহাবিশ্বের সম্প্রসারণ ত্বরাণ্বিত হচ্ছে। বিজ্ঞানীগণ ধারণা করেন মহাবিশ্বে ছড়িয়ে থাকা এই ঋণাত্মক চাপ সৃষ্টিকারী শক্তিই হলো ডার্ক এনার্জি, যা অ্যান্টি-গ্র্যাভিটেশনাল প্রভাব তৈরি করছে।
+                            </p>
+                        </div>
+
+                        <!-- Custom Inline SVG Vector Diagram -->
+                        <div class="bg-slate-900 border border-slate-700/80 p-6 rounded-2xl flex flex-col items-center justify-center shadow-inner">
+                            <svg viewBox="0 0 500 280" class="w-full h-auto max-w-md">
+                                <defs>
+                                    <marker id="arrow-attract" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+                                    </marker>
+                                    <marker id="arrow-repel" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                        <path d="M 0 0 L 10 5 L 0 10 z" fill="#f43f5e" />
+                                    </marker>
+                                </defs>
+
+                                <!-- Grid Lines -->
+                                <line x1="50" y1="140" x2="450" y2="140" stroke="#334155" stroke-dasharray="4" />
+
+                                <!-- Positive Mass M1 -->
+                                <circle cx="130" cy="140" r="35" fill="#0284c7" fill-opacity="0.3" stroke="#38bdf8" stroke-width="3" />
+                                <text x="130" y="145" text-anchor="middle" fill="#ffffff" font-weight="bold" font-size="14">+M1</text>
+                                <text x="130" y="190" text-anchor="middle" fill="#38bdf8" font-size="12">ধনাত্মক ভর (Attractive)</text>
+
+                                <!-- Attractive Vector Arrow -->
+                                <line x1="170" y1="140" x2="220" y2="140" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow-attract)" />
+
+                                <!-- Negative Mass -M2 -->
+                                <circle cx="370" cy="140" r="35" fill="#be123c" fill-opacity="0.3" stroke="#f43f5e" stroke-width="3" stroke-dasharray="3 3" />
+                                <text x="370" y="145" text-anchor="middle" fill="#ffffff" font-weight="bold" font-size="14">-M2</text>
+                                <text x="370" y="190" text-anchor="middle" fill="#f43f5e" font-size="12">ঋণাত্মক ভর (Repulsive)</text>
+
+                                <!-- Repulsive Vector Arrows (Outward) -->
+                                <line x1="410" y1="140" x2="465" y2="140" stroke="#f43f5e" stroke-width="3" marker-end="url(#arrow-repel)" />
+                                <line x1="330" y1="140" x2="280" y2="140" stroke="#f43f5e" stroke-width="3" marker-end="url(#arrow-repel)" />
+
+                                <!-- Expansion Field Waves -->
+                                <path d="M 350,80 Q 370,60 390,80" fill="none" stroke="#f43f5e" stroke-width="2" opacity="0.6" />
+                                <path d="M 340,65 Q 370,40 400,65" fill="none" stroke="#f43f5e" stroke-width="1.5" opacity="0.4" />
+                            </svg>
+                            <span class="text-xs text-slate-400 mt-2 text-center">চিত্র: আকর্ষণী ভরক্ষেত্র ($+M_1$) বনাম প্রসারমান অ্যান্টি-গ্র্যাভিটেশনাল বিকর্ষণ ক্ষেত্র ($-M_2$)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: CHRONICLES OF GENIUS (VVM 2026 FOCUS SCIENTISTS) -->
+            <section id="tab-scientists" class="hidden space-y-6">
+                <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-xl">
+                    <h2 class="text-2xl font-bold text-white mb-1">🔬 বিজ্ঞানী জীবনী (Chronicles of Genius)</h2>
+                    <p class="text-sm text-slate-400">VVM 2026 বর্ষের জন্য নির্ধারিত ত্রি-শক্তি ভারতীয় নারী বিজ্ঞানীদের অবদান</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Profile Card 1: Dr. Asima Chatterjee -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg flex flex-col justify-between hover:border-emerald-500/50 transition duration-300">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4 border-b border-slate-700 pb-4">
+                                <div class="w-14 h-14 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center text-2xl font-bold text-emerald-400">
+                                    অ
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">ড. অসীমা চট্টোপাধ্যায়</h3>
+                                    <span class="text-xs text-emerald-400 font-mono">1917 – 2006</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                                <p><strong class="text-slate-100">কৃতিত্ব:</strong> ভারতীয় বিশ্ববিদ্যালয় থেকে প্রথম মহিলা D.Sc. ডিগ্রী লাভ।</p>
+                                <p><strong class="text-slate-100">গবেষণা:</strong> অর্গানিক কেমিস্ট্রি, আলকালয়েড ও মার্সিলিয়া মার্সিনেটা নিয়ে গবেষণা।</p>
+                                <p><strong class="text-slate-100">উদ্ভাবন:</strong> অ্যান্টি-ম্যালেরিয়াল ওষুধ <span class="text-emerald-300 font-semibold">'Ayush-64'</span> এবং মৃগীরোগের চিকিৎসার ওষুধ তৈরি।</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-700/60 bg-slate-900/40 p-3 rounded-xl italic text-xs text-slate-300 border-l-2 border-emerald-500">
+                            "আমি সমাজ বা প্রতিষ্ঠানের জন্য নয়, নিজের অন্তরের তাগিদেই কাজ করে যেতে চাই।"
+                        </div>
+                    </div>
+
+                    <!-- Profile Card 2: Dr. Anna Mani -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg flex flex-col justify-between hover:border-amber-500/50 transition duration-300">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4 border-b border-slate-700 pb-4">
+                                <div class="w-14 h-14 rounded-full bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center text-2xl font-bold text-amber-400">
+                                    আ
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">ড. আন্না মানি</h3>
+                                    <span class="text-xs text-amber-400 font-mono">1918 – 2001</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                                <p><strong class="text-slate-100">পরিচিতি:</strong> 'Weather Woman of India' নামে খ্যাত বিখ্যাত আবহাওয়াবিদ।</p>
+                                <p><strong class="text-slate-100">গবেষণা:</strong> স্যার সি. ভি. রামনের অধীনে হিরের অপটিক্যাল বৈশিষ্ট্য নিয়ে কাজ।</p>
+                                <p><strong class="text-slate-100">অবদান:</strong> বায়ুমণ্ডলীয় ওজোন, সৌর ও বায়ুপত্র বিকিরণ পরিমাপক দেশীয় যন্ত্রের নকশা তৈরি।</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-700/60 bg-slate-900/40 p-3 rounded-xl italic text-xs text-slate-300 border-l-2 border-amber-500">
+                            "ভুল ধারণা কাটিয়ে সঠিক বৈজ্ঞানিক দৃষ্টিভঙ্গি গড়ে তোলাই প্রকৃত শিক্ষা।"
+                        </div>
+                    </div>
+
+                    <!-- Profile Card 3: Dr. Rohini Godbole -->
+                    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg flex flex-col justify-between hover:border-purple-500/50 transition duration-300">
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4 border-b border-slate-700 pb-4">
+                                <div class="w-14 h-14 rounded-full bg-purple-500/20 border-2 border-purple-500 flex items-center justify-center text-2xl font-bold text-purple-400">
+                                    র
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-white">ড. রোহিণী গোডবোলে</h3>
+                                    <span class="text-xs text-purple-400 font-mono">1952 – 2024</span>
+                                </div>
+                            </div>
+                            <div class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                                <p><strong class="text-slate-100">ক্ষেত্র:</strong> প্রখ্যাত কণা-পদার্থবিজ্ঞানী (Particle Physicist)।</p>
+                                <p><strong class="text-slate-100">CERN পরিচিতি:</strong> Large Hadron Collider (LHC) গবেষণায় ইউরোপীয় অর্গানাইজেশনের গুরুত্বপূর্ণ সহযোগী।</p>
+                                <p><strong class="text-slate-100">সামাজিক অবদান:</strong> STEM ক্ষেত্রে নারীদের অংশগ্রহণ বৃদ্ধিতে অনবদ্য অবদান ও নির্দেশিকা প্রকাশ।</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-700/60 bg-slate-900/40 p-3 rounded-xl italic text-xs text-slate-300 border-l-2 border-purple-500">
+                            "বিজ্ঞান কোনো লিঙ্গভেদ মানে না; কৌতূহল ও নিষ্ঠাই এর একমাত্র পরিচয়।"
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- CREDITS & BRANDING FOOTER MANDATE -->
+        <footer class="bg-slate-900 border-t border-slate-800 py-6 mt-12 text-center text-xs text-slate-400">
+            <div class="max-w-7xl mx-auto px-4 space-y-2">
+                <p class="font-bold text-indigo-400 text-sm">
+                    ক্রিয়েটর: সিরাজ হোসেন (AI-এর সহায়তায়) | Creator: Siraj Hossain with help of AI
+                </p>
+                <p class="text-slate-500">
+                    © 2026 বিদ্যাভ্যাস VVM Preparation Portal. West Bengal Board Bengali Medium Edition. All rights reserved.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT CORE ENGINE -->
+    <script>
+        // 1. EMBEDDED JAVASCRIPT VALIDATED DATABASE POOL (18 High-Quality WB-Syllabus MCQs)
+        const QUESTION_DATABASE = [
+            {
+                id: 1,
+                category: "physical",
+                catName: "ভৌত বিজ্ঞান",
+                question: "পদার্থের ত্বরণ ($a$), প্রযুক্ত বল ($F$) এবং ভরের ($m$) মধ্যে সঠিক গাণিতিক সম্পর্কটি কোনটি?",
+                options: ["$F = m \\times a$", "$F = m / a$", "$a = F \\times m$", "$m = F \\times a$"],
+                correct: 0,
+                explanation: "নিউটনের দ্বিতীয় গতিসূত্র থেকে প্রাপ্ত সমীকরণ অনুযায়ী, প্রযুক্ত বল ($F$) হলো বস্তুটির ভর ($m$) এবং ত্বরণের ($a$) গুণফলের সমান। অর্থাৎ $F = m \\times a$।"
+            },
+            {
+                id: 2,
+                category: "physical",
+                catName: "ভৌত বিজ্ঞান",
+                question: "শব্দ তরঙ্গের গতিবেগ সবচেয়ে বেশি থাকে কোন মাধ্যমে?",
+                options: ["শূন্য মাধ্যম", "গ্যাসীয় মাধ্যম", "তরল মাধ্যম", "কঠিন মাধ্যম"],
+                correct: 3,
+                explanation: "শব্দ সঞ্চালনের জন্য স্থিতিস্থাপক মাধ্যমের প্রয়োজন। কঠিন মাধ্যমে অণুগুলির ঘনত্ব ও স্থিতিস্থাপকতা সর্বাধিক হওয়ায় শব্দের বেগ কঠিন মাধ্যমে সবচেয়ে বেশি হয়।"
+            },
+            {
+                id: 3,
+                category: "physical",
+                catName: "ভৌত বিজ্ঞান",
+                question: "একটি বৃত্তাকার মাঠের ব্যাসার্ধ $R$ হলে, একজন ব্যক্তি পুরো মাঠ একবার ঘুরে আসলে তার সরণ (Displacement) কত হবে?",
+                options: ["$2 \\pi R$", "$\\pi R^2$", "$0$", "$2R$"],
+                correct: 2,
+                explanation: "সরণ হলো প্রাথমিক ও শেষ অবস্থানের মধ্যবর্তী সর্বনিম্ন সরলরৈখিক দূরত্ব। ব্যক্তিটি যেখান থেকে শুরু করেছিল সেখানেই ফিরে আসায় প্রাথমিক ও শেষ অবস্থান একই, তাই সরণ শূন্য ($0$)।"
+            },
+            {
+                id: 4,
+                category: "physical",
+                catName: "ভৌত বিজ্ঞান",
+                question: "নিচের কোন ধাতুটি সাধারণ তাপমাত্রায় তরল অবস্থায় থাকে?",
+                options: ["সোডিয়াম", "পারদ (Mercury)", "অ্যালুমিনিয়াম", "দস্তা"],
+                correct: 1,
+                explanation: "পারদ (Hg) হলো একমাত্র ধাতু যা সাধারণ ঘরের তাপমাত্রায় তরল অবস্থায় অবস্থান করে।"
+            },
+            {
+                id: 5,
+                category: "life",
+                catName: "জীবন বিজ্ঞান",
+                question: "উদ্ভিদের কোষ প্রাচীরের (Cell Wall) প্রধান রাসায়নিক উপাদান কোনটি?",
+                options: ["প্রোটিন", "সেলুলোজ (Cellulose)", "লিপিড", "গ্লাইকোজেন"],
+                correct: 1,
+                explanation: "উদ্ভিদ কোষ প্রাচীর মূলত জটিল কার্বোহাইড্রেট সেলুলোজ দ্বারা গঠিত, যা কোষকে শক্ত কাঠামোগত ভিত্তি প্রদান করে।"
+            },
+            {
+                id: 6,
+                category: "life",
+                catName: "জীবন বিজ্ঞান",
+                question: "মানবদেহে লোহিত রক্তকণিকা (RBC) তৈরিতে এবং অক্সিজেন পরিবহনে সাহায্য করে কোন খনিজ উপাদান?",
+                options: ["ক্যালসিয়াম", "সোডিয়াম", "লোহা (Iron)", "পটাশিয়াম"],
+                correct: 2,
+                explanation: "লোহা (Iron) হিমোগ্লোবিন সংশ্লেষণের মূল উপাদান, যা ফুসফুস থেকে সারা দেহে অক্সিজেন পরিবহনে কাজ করে।"
+            },
+            {
+                id: 7,
+                category: "life",
+                catName: "জীবন বিজ্ঞান",
+                question: "উদ্ভিদে সালোকসংশ্লেষের (Photosynthesis) আলোক দশায় জল বিশ্লিষ্ট হয়ে অক্সিজেন নির্গমনের প্রক্রিয়াকে কী বলে?",
+                options: ["গ্লাইকোলাইসিস", "ফটোলিসিস (Photolysis)", "ক্রেবস চক্র", "শ্বসন"],
+                correct: 1,
+                explanation: "সূর্যালোক ও ক্লোরোফিলের উপস্থিতিতে জলের অণু ভেঙে হাইড্রোজেন ও অক্সিজেন তৈরি হওয়াকে ফটোলিসিস বা জলের আলোক বিশ্লেষণ বলে।"
+            },
+            {
+                id: 8,
+                category: "math",
+                catName: "গণিত",
+                question: "একটি বৃত্তের ব্যাসার্ধ $50\\%$ বৃদ্ধি পেলে তার ক্ষেত্রফল শতকরা কত শতাংশ বৃদ্ধি পাবে?",
+                options: ["$50\\%$", "$100\\%$", "$125\\%$", "$150\\%$"],
+                correct: 2,
+                explanation: "ক্ষেত্রফল $\\propto R^2$। নতুন ব্যাসার্ধ = $1.5 R$। নতুন ক্ষেত্রফল = $(1.5)^2 R^2 = 2.25 R^2$। ক্ষেত্রফল বৃদ্ধি = $2.25 - 1 = 1.25$ বা $125\\%$।"
+            },
+            {
+                id: 9,
+                category: "math",
+                catName: "গণিত",
+                question: "যদি $x + \\frac{1}{x} = 3$ হয়, তবে $x^2 + \\frac{1}{x^2}$ এর মান কত?",
+                options: ["$9$", "$7$", "$11$", "$6$"],
+                correct: 1,
+                explanation: "$x^2 + \\frac{1}{x^2} = (x + \\frac{1}{x})^2 - 2(x)(\\frac{1}{x}) = (3)^2 - 2 = 9 - 2 = 7$।"
+            },
+            {
+                id: 10,
+                category: "math",
+                catName: "গণিত",
+                question: "প্রথম ৫টি মৌলিক সংখ্যার (Prime Numbers) গড় কত?",
+                options: ["$5.6$", "$5.0$", "$3.6$", "$4.2$"],
+                correct: 0,
+                explanation: "প্রথম ৫টি মৌলিক সংখ্যা হলো ২, ৩, ৫, ৭, এবং ১১। এদের সমষ্টি = $২+৩+৫+৭+১১ = ২৮$। গড় = $২৮ / ৫ = ৫.৬$।"
+            },
+            {
+                id: 11,
+                category: "indian_science",
+                catName: "বিজ্ঞানে ভারতের অবদান",
+                question: "ভারতের 'অ্যান্টি-ম্যালেরিয়াল' ওষুধ 'Ayush-64' উদ্ভাবনে কার অবদান অবিস্মরণীয়?",
+                options: ["ড. আন্না মানি", "ড. অসীমা চট্টোপাধ্যায়", "ড. রোহিণী গোডবোলে", "জানকী আম্মাল"],
+                correct: 1,
+                explanation: "রসায়নবিদ ড. অসীমা চট্টোপাধ্যায় ভারতীয় ভেষজ উদ্ভিদ থেকে ম্যালেরিয়া প্রতিরোধী ওষুধ Ayush-64 তৈরি করেন।"
+            },
+            {
+                id: 12,
+                category: "indian_science",
+                catName: "বিজ্ঞানে ভারতের অবদান",
+                question: "'Weather Woman of India' নামে পরিচিত এবং স্যার সি.ভি. রামনের অধীনে গবেষণা করা বিজ্ঞানী কে?",
+                options: ["কল্পনা চাওলা", "ড. আন্না মানি", "সুনেত্রা গুপ্ত", "অধ্যাপক সি. এন. আর. রাও"],
+                correct: 1,
+                explanation: "ড. আন্না মানি ছিলেন প্রখ্যাত আবহাওয়াবিদ যিনি ভারতে বায়ুশক্তি ও সৌরশক্তি পরিমাপের স্বদেশী যন্ত্র তৈরি করেছিলেন।"
+            },
+            {
+                id: 13,
+                category: "indian_science",
+                catName: "বিজ্ঞানে ভারতের অবদান",
+                question: "ইউরোপীয় পারমাণবিক গবেষণা সংস্থায় (CERN) কণা-পদার্থবিজ্ঞানে বিখ্যাত কাজ করেছেন কোন ভারতীয় বিজ্ঞানী?",
+                options: ["ড. অসীমা চট্টোপাধ্যায়", "ড. রোহিণী গোডবোলে", "মেঘনাদ সাহা", "হোমি ভাবা"],
+                correct: 1,
+                explanation: "ড. রোহিণী গোডবোলে CERN-এর Large Hadron Collider (LHC) প্রকল্পের সাথে ঘনিষ্ঠভাবে যুক্ত কণা-পদার্থবিজ্ঞানী ছিলেন।"
+            },
+            {
+                id: 14,
+                category: "physical",
+                catName: "ভৌত বিজ্ঞান",
+                question: "কোনো পরিবাহীর মধ্য দিয়ে $2$ অ্যাম্পিয়ার তড়িৎপ্রবাহ $5$ সেকেন্ড ধরে চললে প্রবাহিত আধানের (Charge) পরিমাণ কত?",
+                options: ["$2.5$ কুলম্ব", "$10$ কুলম্ব", "$7$ কুলম্ব", "$0.4$ কুলম্ব"],
+                correct: 1,
+                explanation: "তড়িৎ আধান $Q = I \\times t$। এখানে $I = 2\\text{ A}$ এবং $t = 5\\text{ s}$। সুতরাং $Q = 2 \\times 5 = 10\\text{ Coulombs}$।"
+            },
+            {
+                id: 15,
+                category: "life",
+                catName: "জীবন বিজ্ঞান",
+                question: "ডিএনএ (DNA) অনুতে কোনটি অনুপস্থিত থাকে?",
+                options: ["অ্যাডেনিন", "গুয়ানিন", "ইউরাসিল (Uracil)", "থাইমিন"],
+                correct: 2,
+                explanation: "ডিএনএ-তে চারটি ক্ষারক থাকে: অ্যাডেনিন, থাইমিন, গুয়ানিন ও সাইটোসিন। ইউরাসিল কেবল আরএনএ (RNA)-তে থাকে।"
+            },
+            {
+                id: 16,
+                category: "math",
+                catName: "গণিত",
+                question: "একটি সমবাহু ত্রিভুজের বাহুর দৈর্ঘ্য $4\\text{ cm}$ হলে, তার ক্ষেত্রফল কত?",
+                options: ["$4\\sqrt{3}\\text{ cm}^2$", "$16\\sqrt{3}\\text{ cm}^2$", "$2\\sqrt{3}\\text{ cm}^2$", "$8\\text{ cm}^2$"],
+                correct: 0,
+                explanation: "সমবাহু ত্রিভুজের ক্ষেত্রফল = $\\frac{\\sqrt{3}}{4} \\times \\text{বাহু}^2 = \\frac{\\sqrt{3}}{4} \\times 4^2 = 4\\sqrt{3}\\text{ cm}^2$।"
+            },
+            {
+                id: 17,
+                category: "indian_science",
+                catName: "বিজ্ঞানে ভারতের অবদান",
+                question: "উদ্ভিদের প্রাণ আছে এবং উদ্দীপনায় প্রতিক্রিয়া প্রকাশ করে—এটি প্রমাণ করেন কোন ভারতীয় বিজ্ঞানী?",
+                options: ["আচার্য প্রফুল্ল চন্দ্র রায়", "আচার্য জগদীশ চন্দ্র বসু", "সত্যেন্দ্রনাথ বসু", "সি. ভি. রমন"],
+                correct: 1,
+                explanation: "আচার্য জগদীশ চন্দ্র বসু ক্রেস্কোগ্রাফ যন্ত্র উদ্ভাবন করে উদ্ভিদের সাড়া প্রদানের ক্ষমতা প্রমাণ করেন।"
+            },
+            {
+                id: 18,
+                category: "physical",
+                catName: "ভৌত বিজ্ঞান",
+                question: "বায়ুমণ্ডলীয় চাপ পরিমাপ করার জন্য ব্যবহৃত প্রধান যন্ত্রটির নাম কী?",
+                options: ["থার্মোমিটার", "ব্যারোমিটার (Barometer)", "হাইগ্রোমিটার", "অ্যামিটার"],
+                correct: 1,
+                explanation: "ইতালীয় বিজ্ঞানী টরিচেলির নীতি অনুসারে ব্যারোমিটার যন্ত্রের সাহায্যে বায়ুমণ্ডলের চাপ মাপা হয়।"
+            }
+        ];
+
+        // GLOBAL ENGINE STATE
+        let activeClass = "8";
+        let sessionQuestions = [];
+        let userAnswers = {}; // Index -> Selected option index
+        let reviewMarks = {};  // Index -> Boolean
+        let currentQuestionIndex = 0;
+        let timerInterval = null;
+        let timeRemaining = 900; // 15 Minutes
+
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            renderClassGrid();
+            renderYearSelector();
+        });
+
+        // UI TAB NAVIGATION
+        function switchTab(tabId) {
+            ['dashboard', 'antigravity', 'scientists'].forEach(id => {
+                document.getElementById(`tab-${id}`).classList.add('hidden');
+                document.getElementById(`nav-${id}`).className = "px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700/50 transition-all";
+            });
+
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.getElementById(`nav-${tabId}`).className = "px-4 py-2 rounded-lg text-white bg-indigo-600 transition-all";
+        }
+
+        // RENDER FILTERS
+        function renderClassGrid() {
+            const container = document.getElementById('class-grid');
+            container.innerHTML = '';
+            for (let c = 6; c <= 12; c++) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.innerText = `Class ${c}`;
+                btn.className = `py-1.5 px-2 text-xs font-semibold rounded-lg border transition ${c.toString() === activeClass ? 'bg-indigo-600 text-white border-indigo-500 shadow' : 'bg-slate-900 text-slate-300 border-slate-700 hover:border-slate-500'}`;
+                btn.onclick = () => {
+                    activeClass = c.toString();
+                    renderClassGrid();
+                };
+                container.appendChild(btn);
+            }
+        }
+
+        function renderYearSelector() {
+            const select = document.getElementById('year-select');
+            select.innerHTML = '';
+            for (let yr = 2026; yr >= 2017; yr--) {
+                const opt = document.createElement('option');
+                opt.value = yr;
+                opt.innerText = `${yr} শিক্ষাবর্ষ`;
+                select.appendChild(opt);
+            }
+        }
+
+        // MOCK TEST ENGINE
+        function startMockTest() {
+            const selectedSubject = document.getElementById('subject-select').value;
+            
+            // Filter pool if specific category chosen, else full pool
+            let pool = QUESTION_DATABASE;
+            if (selectedSubject !== 'all') {
+                const filtered = QUESTION_DATABASE.filter(q => q.category === selectedSubject);
+                if (filtered.length >= 5) {
+                    pool = filtered;
+                }
+            }
+
+            // Shuffle algorithm (Fisher-Yates)
+            let shuffled = [...pool];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+
+            // Extract EXACTLY 15 questions (fill repeats if filtered pool < 15)
+            sessionQuestions = [];
+            let idx = 0;
+            while (sessionQuestions.length < 15) {
+                sessionQuestions.push(shuffled[idx % shuffled.length]);
+                idx++;
+            }
+
+            // Reset States
+            userAnswers = {};
+            reviewMarks = {};
+            currentQuestionIndex = 0;
+            timeRemaining = 900; // 15 mins
+
+            // Show Session UI
+            document.getElementById('filter-card').classList.add('hidden');
+            document.getElementById('review-zone').classList.add('hidden');
+            document.getElementById('test-session').classList.remove('hidden');
+
+            renderNavGrid();
+            loadQuestion(0);
+            startTimer();
+        }
+
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = sessionQuestions[index];
+
+            document.getElementById('current-q-badge').innerText = `${index + 1} / 15`;
+            document.getElementById('question-category').innerText = `বিষয়: ${q.catName}`;
+            document.getElementById('question-text').innerText = `${index + 1}. ${q.question}`;
+
+            // Render Options
+            const optsContainer = document.getElementById('options-container');
+            optsContainer.innerHTML = '';
+
+            q.options.forEach((optText, optIdx) => {
+                const isSelected = userAnswers[index] === optIdx;
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-4 rounded-xl border font-medium text-sm transition flex items-center gap-3 ${isSelected ? 'bg-indigo-600/20 border-indigo-500 text-indigo-200' : 'bg-slate-900/60 border-slate-700/80 text-slate-200 hover:border-slate-500'}`;
+                btn.onclick = () => selectOption(index, optIdx);
+
+                btn.innerHTML = `
+                    <span class="w-6 h-6 rounded-full border border-slate-500 flex items-center justify-center text-xs font-bold ${isSelected ? 'bg-indigo-600 border-indigo-400 text-white' : 'text-slate-400'}">
+                        ${String.fromCharCode(65 + optIdx)}
+                    </span>
+                    <span>${optText}</span>
+                `;
+                optsContainer.appendChild(btn);
+            });
+
+            // Update Controls
+            document.getElementById('btn-prev').disabled = index === 0;
+            document.getElementById('btn-next').innerText = index === 14 ? 'পরীক্ষা জমা দিন 🏁' : 'পরবর্তী ➡️';
+            
+            // Update Review Button State
+            const isReviewed = !!reviewMarks[index];
+            document.getElementById('btn-review').className = `px-4 py-2 text-sm rounded-xl font-medium transition ${isReviewed ? 'bg-amber-500 text-slate-900 border border-amber-400' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30'}`;
+
+            updateNavGridColors();
+        }
+
+        function selectOption(qIdx, optIdx) {
+            userAnswers[qIdx] = optIdx;
+            loadQuestion(qIdx);
+        }
+
+        function toggleReviewMark() {
+            reviewMarks[currentQuestionIndex] = !reviewMarks[currentQuestionIndex];
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) loadQuestion(currentQuestionIndex - 1);
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < 14) {
+                loadQuestion(currentQuestionIndex + 1);
+            } else {
+                submitExamPrompt();
+            }
+        }
+
+        function renderNavGrid() {
+            const grid = document.getElementById('nav-grid');
+            grid.innerHTML = '';
+            for (let i = 0; i < 15; i++) {
+                const btn = document.createElement('button');
+                btn.id = `nav-btn-${i}`;
+                btn.innerText = i + 1;
+                btn.className = `h-9 w-full rounded-lg font-bold text-xs transition border border-slate-700 bg-slate-700 text-slate-300`;
+                btn.onclick = () => loadQuestion(i);
+                grid.appendChild(btn);
+            }
+        }
+
+        function updateNavGridColors() {
+            for (let i = 0; i < 15; i++) {
+                const btn = document.getElementById(`nav-btn-${i}`);
+                if (!btn) continue;
+
+                if (reviewMarks[i]) {
+                    btn.className = 'h-9 w-full rounded-lg font-bold text-xs transition bg-amber-500 text-slate-900 border border-amber-400';
+                } else if (userAnswers[i] !== undefined) {
+                    btn.className = 'h-9 w-full rounded-lg font-bold text-xs transition bg-indigo-600 text-white border border-indigo-400';
+                } else {
+                    btn.className = 'h-9 w-full rounded-lg font-bold text-xs transition bg-slate-700 text-slate-300 border border-slate-600';
+                }
+
+                if (i === currentQuestionIndex) {
+                    btn.classList.add('ring-2', 'ring-white', 'scale-105');
+                }
+            }
+        }
+
+        // REALISTIC TIMER & WARNING TRIGGER
+        function startTimer() {
+            clearInterval(timerInterval);
+            const display = document.getElementById('timer-display');
+            const container = document.getElementById('timer-container');
+            const dot = document.getElementById('timer-dot');
+
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+
+                const mins = Math.floor(timeRemaining / 60);
+                const secs = timeRemaining % 60;
+                display.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+                // Critical Countdown Trigger (< 2 Minutes / 120s)
+                if (timeRemaining <= 120 && timeRemaining > 0) {
+                    container.classList.add('timer-warning-active');
+                    display.classList.remove('text-slate-100');
+                    display.classList.add('text-rose-400');
+                    dot.className = "h-3 w-3 rounded-full bg-rose-500 animate-ping";
+                } else {
+                    container.classList.remove('timer-warning-active');
+                    display.classList.add('text-slate-100');
+                    display.classList.remove('text-rose-400');
+                    dot.className = "h-3 w-3 rounded-full bg-emerald-500";
+                }
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    finishExam();
+                }
+            }, 1000);
+        }
+
+        function submitExamPrompt() {
+            if (confirm("আপনি কি নিশ্চিত যে পরীক্ষা জমা দিতে চান?")) {
+                clearInterval(timerInterval);
+                finishExam();
+            }
+        }
+
+        // EVALUATION & REVIEW REPORT ENGINE
+        function finishExam() {
+            document.getElementById('test-session').classList.add('hidden');
+            document.getElementById('review-zone').classList.remove('hidden');
+
+            let correctCount = 0;
+            sessionQuestions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correct) {
+                    correctCount++;
+                }
+            });
+
+            const accuracy = Math.round((correctCount / 15) * 100);
+            
+            // Score Updates
+            document.getElementById('score-text').innerText = `${correctCount}/15`;
+            document.getElementById('accuracy-rate').innerText = `${accuracy}%`;
+            document.getElementById('accuracy-bar').style.width = `${accuracy}%`;
+
+            // Circle Gauge Stroke
+            const circle = document.getElementById('score-gauge-circle');
+            const percentage = (correctCount / 15) * 100;
+            circle.setAttribute('stroke-dasharray', `${percentage}, 100`);
+
+            // Stats
+            document.getElementById('stat-correct').innerText = correctCount;
+            document.getElementById('stat-wrong').innerText = Object.keys(userAnswers).length - correctCount;
+            document.getElementById('stat-unanswered').innerText = 15 - Object.keys(userAnswers).length;
+
+            // Render Review List
+            renderReviewList();
+        }
+
+        function renderReviewList() {
+            const container = document.getElementById('review-list');
+            container.innerHTML = '';
+
+            sessionQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+                const isUnanswered = userAns === undefined;
+
+                const node = document.createElement('div');
+                node.className = "bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg space-y-4";
+
+                let optionsHtml = '';
+                q.options.forEach((opt, oIdx) => {
+                    let optStyle = "bg-slate-900/40 border-slate-700/60 text-slate-300";
+                    let badge = '';
+
+                    if (oIdx === q.correct) {
+                        optStyle = "bg-emerald-950/40 border-emerald-500/80 text-emerald-200 font-semibold";
+                        badge = '<span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30">✓ সঠিক উত্তর</span>';
+                    } else if (userAns === oIdx && !isCorrect) {
+                        optStyle = "bg-rose-950/40 border-rose-500/80 text-rose-200 font-semibold";
+                        badge = '<span class="text-xs bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded border border-rose-500/30">আপনার উত্তর</span>';
+                    }
+
+                    optionsHtml += `
+                        <div class="p-3 rounded-xl border text-sm flex items-center justify-between gap-2 ${optStyle}">
+                            <span>${String.fromCharCode(65 + oIdx)}. ${opt}</span>
+                            ${badge}
+                        </div>
+                    `;
+                });
+
+                node.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+                        <span class="text-xs font-bold text-indigo-400">প্রশ্ন ${idx + 1} / 15</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full font-semibold ${isCorrect ? 'bg-emerald-500/20 text-emerald-300' : (isUnanswered ? 'bg-slate-700 text-slate-300' : 'bg-rose-500/20 text-rose-300')}">
+                            ${isCorrect ? 'সঠিক' : (isUnanswered ? 'উত্তর দেওয়া হয়নি' : 'ভুল')}
+                        </span>
+                    </div>
+                    <h4 class="text-base font-semibold text-white">${q.question}</h4>
+                    <div class="space-y-2">${optionsHtml}</div>
+                    
+                    <!-- Deep Review Explanatory Sub-container -->
+                    <div class="bg-slate-900/80 border border-indigo-500/30 rounded-xl p-4 space-y-1">
+                        <span class="text-xs font-bold text-indigo-300 uppercase tracking-wider block">সমাধান ও ব্যাখ্যা (Bengali Explanation):</span>
+                        <p class="text-xs text-slate-300 leading-relaxed">${q.explanation}</p>
+                    </div>
+                `;
+
+                container.appendChild(node);
+            });
+        }
+
+        function resetToDashboard() {
+            document.getElementById('review-zone').classList.add('hidden');
+            document.getElementById('test-session').classList.add('hidden');
+            document.getElementById('filter-card').classList.remove('hidden');
+            switchTab('dashboard');
+        }
+    </script>
+</body>
+</html>
